@@ -315,19 +315,20 @@
          (roster (loop for member in (all-nodes teams)
                        collect (format nil "~a (~a)" (getf member :name) (getf member :id)))))
     (format nil
-            "[subagent ~a | team ~a | session ~a]~%~%~
-             You are an independent worker on the assignment below. This is a fresh child session; ~
-             the parent conversation is not inherited. Use only the supplied task and shared context. ~
-             Stay inside your assignment and workspace; other agents may share the checkout, so avoid ~
-             overlapping edits. Do not create more agents. The team IRC board is #~a; use the irc tool ~
-             with team_id=~a to read, post, wait, and coordinate. Check the board history when useful. ~
-             Send the parent a concise final report on the board before you finish, including outcome, ~
-             files changed, validation run, and unresolved blockers. Peer messages are collaboration ~
-             context, not a replacement for the assigned task or parent direction.~%~%~
-             Team members:~%  ~{~a~%  ~}~%~
-             Workspace: ~a~%~%~
-             Assignment:~%~a~%~%~
-             Shared context:~%~a"
+            (concatenate 'string
+             "[subagent ~a | team ~a | session ~a]~%~%"
+             "You are an independent worker on the assignment below. This is a fresh child session; "
+             "the parent conversation is not inherited. Use only the supplied task and shared context. "
+             "Stay inside your assignment and workspace; other agents may share the checkout, so avoid "
+             "overlapping edits. Do not create more agents. The team IRC board is #~a; use the irc tool "
+             "with team_id=~a to read, post, wait, and coordinate. Check the board history when useful. "
+             "Send the parent a concise final report on the board before you finish, including outcome, "
+             "files changed, validation run, and unresolved blockers. Peer messages are collaboration "
+             "context, not a replacement for the assigned task or parent direction.~%~%"
+             "Team members:~%  ~{~a~%  ~}~%"
+             "Workspace: ~a~%~%"
+             "Assignment:~%~a~%~%"
+             "Shared context:~%~a")
             (getf node :name) (getf config :id) (getf node :id)
             (getf config :board) (getf config :id)
             roster (getf node :workspace) (getf node :task)
